@@ -221,7 +221,7 @@ typedef struct uv_work_s uv_work_t;
 /* None of the above. */
 typedef struct uv_cpu_info_s uv_cpu_info_t;
 typedef struct uv_interface_address_s uv_interface_address_t;
-
+typedef struct uv_chan_s uv_chan_t;
 
 typedef enum {
   UV_RUN_DEFAULT = 0,
@@ -1999,6 +1999,27 @@ union uv_any_req {
 };
 #undef XX
 
+struct uv_chan_s {
+  uv_mutex_t mutex;
+  uv_cond_t cond;
+  void* q[2];
+};
+
+/*
+ * A channel provides a mechanism for concurrently executing threads to communicate by passing values.
+ * Given a uv_chan_t instance, any thread can send or receive data. Data will be send to all the receivers
+ * in the channel. The first one who reads data will get it and all other receivers will still wait. User don't
+ * have to explicitly lock when sending or receiving data.
+ *
+ * Receivers always block until there is data to receive.
+ *
+ * A channel can be closed with uv_chan_destroy
+ *
+ */
+UV_EXTERN int uv_chan_init(uv_chan_t* chan);
+UV_EXTERN void uv_chan_send(uv_chan_t* chan, void* data);
+UV_EXTERN void* uv_chan_receive(uv_chan_t* chan);
+UV_EXTERN void uv_chan_destroy(uv_chan_t* chan);
 
 struct uv_loop_s {
   /* User data - use this for whatever. */

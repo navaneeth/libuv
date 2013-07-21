@@ -212,6 +212,8 @@ TEST_DECLARE   (poll_duplex)
 TEST_DECLARE   (poll_unidirectional)
 TEST_DECLARE   (poll_close)
 TEST_DECLARE   (ip6_addr_link_local)
+TEST_DECLARE   (message_passing_with_channels)
+TEST_DECLARE   (uv_chan_receive_should_block_when_no_data_available)
 #ifdef _WIN32
 TEST_DECLARE   (spawn_detect_pipe_name_collisions_on_windows)
 TEST_DECLARE   (argument_escaping)
@@ -501,6 +503,8 @@ TASK_LIST_START
   TEST_ENTRY  (strlcat)
   TEST_ENTRY  (dlerror)
   TEST_ENTRY  (ip6_addr_link_local)
+  TEST_ENTRY  (message_passing_with_channels)
+  TEST_ENTRY  (uv_chan_receive_should_block_when_no_data_available)
 #if 0
   /* These are for testing the test runner. */
   TEST_ENTRY  (fail_always)

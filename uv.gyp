@@ -379,6 +379,7 @@
         'test/test-dlerror.c',
         'test/test-udp-multicast-ttl.c',
         'test/test-ip6-addr.c',
+        'test/test-channel.c',
       ],
       'conditions': [
         [ 'OS=="win"', {
